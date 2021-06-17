@@ -26,6 +26,7 @@ namespace SupermarketProjectMVC
         public void ConfigureServices(IServiceCollection services)
         {
          services.AddControllersWithViews();
+         services.AddRazorPages();
          services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
@@ -47,6 +48,7 @@ namespace SupermarketProjectMVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -54,6 +56,7 @@ namespace SupermarketProjectMVC
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

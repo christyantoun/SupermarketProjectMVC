@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SupermarketProjectMVC.Areas.Identity.Data;
 using SupermarketProjectMVC.Data;
 using SupermarketProjectMVC.Models;
 
 namespace SupermarketProjectMVC.Controllers
 {
-    [Authorize]
+   // [Authorize(UserStore = "Ali@gmail.com,Ahmed@gmail.com")]
+   [Authorize]
     public class StoreManagerController : Controller
     {
        
@@ -23,10 +27,38 @@ namespace SupermarketProjectMVC.Controllers
         }
 
         // GET: StoreManager
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string itemCategory, string searchString)
         {
             var applicationDbContext = _context.Item.Include(i => i.Category).Include(i => i.Producer);
-            return View(await applicationDbContext.ToListAsync());
+            IQueryable<string> categoryQuery = from m in _context.Item orderby m.Category.Name select m.Category.Name;
+
+            var items = from m in _context.Item select m;
+            //var items = _context.Item.Include(n => n.Category);
+            //var items = _context.Item
+            //    .Include(i => i.Category)
+            //    .Include(i => i.Producer)
+            //    .FirstOrDefaultAsync(from m in _context.Item select m);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(s => s.Title.Contains(searchString));
+
+            }
+
+            if (!string.IsNullOrEmpty(itemCategory))
+            {
+                items = items.Where(x => x.Category.Name == itemCategory);
+            }
+
+            var CategoryListM = new CategoryListModel
+            {
+                Category = new SelectList(await categoryQuery.Distinct().ToListAsync()),
+                Item = await _context.Item
+                .Include(i => i.Category)
+                .Include(i => i.Producer).ToListAsync(),
+            };
+       
+            return View(CategoryListM);
+          //  return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: StoreManager/Details/5
@@ -36,7 +68,7 @@ namespace SupermarketProjectMVC.Controllers
             {
                 return NotFound();
             }
-
+            
             var item = await _context.Item
                 .Include(i => i.Category)
                 .Include(i => i.Producer)

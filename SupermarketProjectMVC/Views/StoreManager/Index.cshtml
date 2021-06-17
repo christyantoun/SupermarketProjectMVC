@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SupermarketProjectMVC.Models.Item>
+﻿@model SupermarketProjectMVC.Models.CategoryListModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,45 +9,56 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="StoreManager" asp-action="Index" method="get">
+    <p>
+        Category: <select asp-for="ItemCategory" asp-items="Model.Category">
+            <option value="">All</option>
+        </select>
+        Item Name: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Item[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Item[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.Item[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Producer)
+                @Html.DisplayNameFor(model => model.Item[0].Producer)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Producer.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Item)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Producer.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

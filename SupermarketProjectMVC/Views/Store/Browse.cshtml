@@ -1,0 +1,16 @@
+﻿@model SupermarketProjectMVC.Models.Category
+@{
+    ViewData["Title"] = "Browse";
+}
+
+
+<h1>Browse:@Model.Name</h1>
+
+<ul>
+    @foreach (var item in Model.Items)
+    {
+        <li>
+            @Html.ActionLink(item.Title, "Details", new { id = item.ItemId })
+        </li>
+    }
+</ul>

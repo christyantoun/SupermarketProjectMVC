@@ -6,25 +6,24 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 
-<div class="wrapper">
+
     <form asp-controller="Store" asp-action="SearchFct" method="get">
         <p>
             Item Name: <input type="text" name="searchString" />
             <input type="submit" />
         </p>
     </form>
-
-    @foreach (var item in Model.Items)
-    {
-
-        <div style="color:black">
-            <a href="@Url.Action("Details" , new { id = item.ItemId })">
-                @Html.Partial("_SingleItem", item)
-            </a>
-            @*@Html.ActionLink(item.Title, "Details", new { id = item.ItemId })*@
-        </div>
-    }
-</div>
+    <div class="wrapper">
+        @foreach (var item in Model.Items)
+        {
+         <div style="color:black">
+                <a href="@Url.Action("Details" , new { id = item.ItemId })">
+                    @Html.Partial("_SingleItem", item)
+                </a>
+                @*@Html.ActionLink(item.Title, "Details", new { id = item.ItemId })*@
+            </div>
+        }
+    </div>
 <br />
 <br />
 <br />

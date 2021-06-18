@@ -1,0 +1,11 @@
+﻿@model SupermarketProjectMVC.Models.Category
+<div>
+    <img alt="@Model.Description"
+         src="~/Images/@Model.Description" style="width:75px ; height:75px; object-fit: contain;" />
+    <dl class="row">
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+

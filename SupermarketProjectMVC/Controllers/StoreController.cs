@@ -90,6 +90,7 @@ namespace SupermarketProjectMVC.Controllers
                 return View();
             }
         }
+
         public async Task<IActionResult> SearchFct(string searchString)
         {
             //  var applicationDbContext = _context.Item.Include(i => i.Category).Include(i => i.Producer);

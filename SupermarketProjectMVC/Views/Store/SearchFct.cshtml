@@ -1,52 +1,30 @@
 ﻿@model List<SupermarketProjectMVC.Models.Item>
 
 @{
-    ViewData["Title"] = "";
+    ViewData["Title"] = "Browse the Items";
 }
-@foreach (var item in Model)
-{
-    <h1>Details</h1>
-    <h2>@item.Title</h2>
-    <p>
 
-        <img alt="@item.Title"
-             src="~/Images/@item.ItemArtUrl" style="width:auto ; height:250px; object-fit: fill;" />
-    </p>
-
-    <div>
-        <h4>Item</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.Title)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Title)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.Price)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Price)
-            </dd>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
 
 
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.Category)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Category.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.Producer)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Producer.Name)
-            </dd>
-        </dl>
+
+    <div class="wrapper">
+        @foreach (var item in Model)
+        {
+
+            <div style="color:black">
+                <a href="@Url.Action("Details" , new { id = item.ItemId })">
+                    @Html.Partial("_SingleItem", item)
+                </a>
+                @*@Html.ActionLink(item.Title, "Details", new { id = item.ItemId })*@
+            </div>
+        }
     </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>
-}
+<br />
+<br />
+<br />
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

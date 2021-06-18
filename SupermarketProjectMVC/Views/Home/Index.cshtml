@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<SupermarketProjectMVC.Models.Item>
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -99,7 +100,22 @@
                 </a>
             </div>
         </asp:Content>
+        <div>
+            @{
+                ;
+            }
+        </div>
     </div>
-
+    <div class="wrapper">
+        @foreach (var item in Model)
+        {
+        <div style="color:black">
+            <a href="@Url.Action("Details" , "Store", new { id = item.ItemId })">
+                @Html.Partial("_SingleItem", item)
+            </a>
+            @*@Html.ActionLink(item.Title, "Details", new { id = item.ItemId })*@
+        </div>
+        }
+    </div>
 
 </div>

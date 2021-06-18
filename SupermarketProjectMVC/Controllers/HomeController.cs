@@ -27,39 +27,13 @@ namespace SupermarketProjectMVC.Controllers
         }
 
 
-        public async Task<IActionResult> Index( string itemCategory, string searchString)
+        public async Task<IActionResult> Index()
         {
-                //  var applicationDbContext = _context.Item.Include(i => i.Category).Include(i => i.Producer);
-                IQueryable<string> categoryQuery = from m in _context.Item orderby m.Category.Name select m.Category.Name;
 
-                var items = from m in _context.Item select m;
+            var items = from m in _context.Item select m;
 
-                //var items = _context.Item.Include(n => n.Category);
-                //var items = _context.Item
-                //    .Include(i => i.Category)
-                //    .Include(i => i.Producer)
-                //    .FirstOrDefaultAsync(from m in _context.Item select m);
-
-                if (!string.IsNullOrEmpty(searchString))
-                {
-                    items = items.Where(s => s.Title.Contains(searchString) || s.Producer.Name.Contains(searchString));
-
-                }
-
-                if (!string.IsNullOrEmpty(itemCategory))
-                {
-                    items = items.Where(x => x.Category.Name == itemCategory);
-                }
-
-                var CategoryListM = new CategoryListModel
-                {
-                    Category = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                    Item = await items.Include(i => i.Category).ToListAsync()
-    ,
-                };
-                var applicationDbContext = _context.Item.Include(i => i.Category).Include(i => i.Producer);
-
-            return View(CategoryListM);
+            return View(await items.Include(i => i.Category).Include(i => i.Producer).ToListAsync());
+            
         }
 
         public IActionResult Privacy()

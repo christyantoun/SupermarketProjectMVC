@@ -37,9 +37,18 @@
                                 </p>
                             </form>
                         </li>*@
+                    <li class="nav-item" style="align-content:baseline">
+                        <form asp-controller="Store" asp-action="SearchFct" method="get">
+                            
+                               <input type="text" name="searchString" />
+                                <input type="submit" value="Search"/>
+                        </form>
+                    </li>
                     </ul>
                 </div>
-                <partial name="_LoginPartial" />
+                <div class="nav-item">
+                    <partial name="_LoginPartial" />
+                </div>
             </div>
         </nav>
     </header>

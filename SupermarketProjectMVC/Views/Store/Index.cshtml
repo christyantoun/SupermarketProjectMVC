@@ -22,7 +22,7 @@
 
     @foreach (var category in Model)
     {
-        <div style="border: 1px solid black;
+    <div style="border: 1px solid black;
         float: left;
         width: 30%;
         height: 25vh;
@@ -35,7 +35,16 @@
         display: flex;
         margin: 18px;
     ">
-    @Html.ActionLink(category.Name, "Browse", new { category = category.Name })</div>
+
+                    <a href="@Url.Action("Browse" , new { category = category.Name })">
+                        @Html.Partial("_CategoryItem", category)
+                    </a>
+                    @*@Html.ActionLink(item.Title, "Details", new { id = item.ItemId })*@
+
+        </div>
+
+        @*@Html.ActionLink(category.Name, "Browse", new { category = category.Name })*@
+
     }
 
 </div>

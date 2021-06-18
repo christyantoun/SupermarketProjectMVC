@@ -3,11 +3,10 @@
 @{
     ViewData["Title"] = "Store";
 }
-<div style="width: 100%;
-        height 100vh;
-        padding:2%;
-        border-radius:5%;
-        background: #FFC300;
+<div style="        width: 100%;
+        height 100vh ; background:url('Images/shop.png') no-repeat;
+        background-size: cover;
+        ;
 ">
 
 <h2>Browse Category</h2>
@@ -18,7 +17,7 @@
 </p>
 <div style="        overflow: auto;
         width: 100%;
-        background-color: #22252B
+        
 "; display: flex;>
 
     @foreach (var category in Model)

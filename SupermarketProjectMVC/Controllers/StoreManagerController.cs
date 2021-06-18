@@ -29,7 +29,7 @@ namespace SupermarketProjectMVC.Controllers
         // GET: StoreManager
         public async Task<IActionResult> Index(string itemCategory, string searchString)
         {
-            var applicationDbContext = _context.Item.Include(i => i.Category).Include(i => i.Producer);
+          //  var applicationDbContext = _context.Item.Include(i => i.Category).Include(i => i.Producer);
             IQueryable<string> categoryQuery = from m in _context.Item orderby m.Category.Name select m.Category.Name;
 
             var items = from m in _context.Item select m;
@@ -41,7 +41,7 @@ namespace SupermarketProjectMVC.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 items = items.Where(s => s.Title.Contains(searchString));
-
+              
             }
 
             if (!string.IsNullOrEmpty(itemCategory))
@@ -52,9 +52,8 @@ namespace SupermarketProjectMVC.Controllers
             var CategoryListM = new CategoryListModel
             {
                 Category = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Item = await _context.Item
-                .Include(i => i.Category)
-                .Include(i => i.Producer).ToListAsync(),
+                Item = await items.Include(i => i.Category).ToListAsync()
+,
             };
        
             return View(CategoryListM);

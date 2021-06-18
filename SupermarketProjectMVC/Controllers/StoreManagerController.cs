@@ -52,7 +52,7 @@ namespace SupermarketProjectMVC.Controllers
             var CategoryListM = new CategoryListModel
             {
                 Category = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Item = await items.Include(i => i.Category).ToListAsync()
+                Item = await items.Include(i => i.Category).Include(i => i.Producer).ToListAsync()
 ,
             };
        

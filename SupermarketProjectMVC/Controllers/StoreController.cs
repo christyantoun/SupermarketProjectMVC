@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SupermarketProjectMVC.Data;
 using SupermarketProjectMVC.Models;
@@ -37,10 +38,15 @@ namespace SupermarketProjectMVC.Controllers
         }
 
         // GET: StoreController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var Item = _context.Item.Find(id);
-            return View(Item);
+
+            var item = await _context.Item
+          .Include(i => i.Category)
+          .Include(i => i.Producer)
+          .FirstOrDefaultAsync(m => m.ItemId == id);
+
+            return View(item);
         }
 
         // GET: StoreController/Create
@@ -84,7 +90,28 @@ namespace SupermarketProjectMVC.Controllers
                 return View();
             }
         }
+        public async Task<IActionResult> SearchFct(string searchString)
+        {
+            //  var applicationDbContext = _context.Item.Include(i => i.Category).Include(i => i.Producer);
+            IQueryable<string> categoryQuery = from m in _context.Item orderby m.Category.Name select m.Category.Name;
 
+            var items = from m in _context.Item select m;
+            //var items = _context.Item.Include(n => n.Category);
+            //var items = _context.Item
+            //    .Include(i => i.Category)
+            //    .Include(i => i.Producer)
+            //    .FirstOrDefaultAsync(from m in _context.Item select m);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(s => s.Title.Contains(searchString));
+
+            }
+
+
+
+            return View(await items.Include(i => i.Category).Include(i => i.Producer).ToListAsync());
+            //  return View(await applicationDbContext.ToListAsync());
+        }
         // GET: StoreController/Delete/5
         public ActionResult Delete(int id)
         {

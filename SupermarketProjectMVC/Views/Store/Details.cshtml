@@ -5,7 +5,7 @@
 }
 
 <h1>Details</h1>
-<h2>Item:@Model.Title</h2>
+<h2>@Model.Title</h2>
 <p>
 
     <img alt="@Model.Title"
@@ -32,12 +32,8 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ItemArtUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ItemArtUrl)
-        </dd>
+
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>

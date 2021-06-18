@@ -45,6 +45,10 @@ namespace SupermarketProjectMVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+          
+
+            // Add MVC to the request pipeline.
+           
 
             app.UseRouting();
 

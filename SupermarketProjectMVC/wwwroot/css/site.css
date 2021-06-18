@@ -12,6 +12,25 @@ a {
   color: #0366d6;
 }
 
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.zoom {
+    padding: 50px;
+    background-color: transparent;
+    transition: transform .2s; /* Animation */
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+a, u {
+    color:black;
+    text-decoration: none !important;
+}
+.zoom:hover {
+        transform: scale(1.20); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;

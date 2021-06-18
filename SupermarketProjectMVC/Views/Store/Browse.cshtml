@@ -1,16 +1,26 @@
 ﻿@model SupermarketProjectMVC.Models.Category
 @{
-    ViewData["Title"] = "Browse";
+    ViewData["Title"] = "Browse the Items";
 }
 
-
-<h1>Browse:@Model.Name</h1>
-
-<ul>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<div class="wrapper">
     @foreach (var item in Model.Items)
     {
-        <li>
-            @Html.ActionLink(item.Title, "Details", new { id = item.ItemId })
-        </li>
+
+    <div style="color:black">
+        <a href="@Url.Action("Details" , new { id = item.ItemId })">
+            @Html.Partial("_SingleItem", item)
+            </a>
+            @*@Html.ActionLink(item.Title, "Details", new { id = item.ItemId })*@
+    </div>
     }
-</ul>
+</div>
+<br />
+<br />
+<br />
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

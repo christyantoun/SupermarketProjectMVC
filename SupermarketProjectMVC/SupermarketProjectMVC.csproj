@@ -23,7 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
+    <None Include="wwwroot\Images\cadburry.jpg" />
+    <None Include="wwwroot\Images\ixir.png" />
+    <None Include="wwwroot\Images\leble.jpg" />
+    <None Include="wwwroot\Images\masters_chips.png" />
+    <None Include="wwwroot\Images\taanayel_milk.png" />
+    <None Include="wwwroot\Images\tartina_plein_soleil.jpg" />
   </ItemGroup>
 
 </Project>

@@ -3,16 +3,41 @@
 @{
     ViewData["Title"] = "Store";
 }
+<div style="width: 100%;
+        height 100vh;
+        padding:2%;
+        border-radius:5%;
+        background: #FFC300;
+">
+
 <h2>Browse Category</h2>
 <p>
 
     Select from @Model.Count()
     categories:
 </p>
-<ul>
+<div style="        overflow: auto;
+        width: 100%;
+        background-color: #22252B
+"; display: flex;>
+
     @foreach (var category in Model)
     {
-        <li>@Html.ActionLink(category.Name, "Browse", new { category = category.Name })</li>
+        <div style="border: 1px solid black;
+        float: left;
+        width: 30%;
+        height: 25vh;
+        text-align: center;
+        vertical-align: middle;
+        box-shadow: 0 5px 10px rgba(154,160,185,.05);
+        border-radius: 5%;
+        background-color: #449488; align-items: center;
+        justify-content: center;
+        display: flex;
+        margin: 18px;
+    ">
+    @Html.ActionLink(category.Name, "Browse", new { category = category.Name })</div>
     }
 
-</ul>
+</div>
+    </div>

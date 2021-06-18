@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SupermarketProjectMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,5 @@ namespace SupermarketProjectMVC.Data
 
             public DbSet<SupermarketProjectMVC.Models.Category> Category { get; set; }
 
-        }
+    }
     }
